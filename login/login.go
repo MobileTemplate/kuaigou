@@ -10,11 +10,12 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"qianuuu.com/lib/client"
-	"qianuuu.com/lib/logs"
 	"qianuuu.com/kuaigou/login/api"
 	"qianuuu.com/kuaigou/login/config"
 	"qianuuu.com/kuaigou/login/internal/rest"
+	"qianuuu.com/kuaigou/usecase"
+	"qianuuu.com/lib/client"
+	"qianuuu.com/lib/logs"
 )
 
 func startServer() {
@@ -74,6 +75,11 @@ func main() {
 	defer func() {
 		_ = client.Close()
 	}()
+
+	uc := usecase.NewUsecase(client)
+
+	api.Init(uc)
+
 	startServer()
 	handleSignals()
 }

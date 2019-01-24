@@ -17,3 +17,7 @@ type User struct {
 func (User) TableName() string {
 	return "users"
 }
+
+type UserMisc struct {
+	Code string `json:"code"`
+}

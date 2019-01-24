@@ -125,29 +125,18 @@ func (e *EchoTools) NewToken(value map[string]interface{}) *Token {
 	return NewToken(value)
 }
 
-// GetToken 获取 token  state 0 1
-func (e *EchoTools) GetToken(key string,uid int) (values.ValueMap, error) {
+// GetToken 获取 token
+func (e *EchoTools) GetToken(key string) (values.ValueMap, error) {
 	// 如果 url 中存在 token，则从 url 中提取
-	ret:= values.ValueMap{
-		"state":0,
-	}
 	if auth := e.FormString("token"); len(auth) > 0 {
 		t, err := jwt.Parse(auth, func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return ret, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 			}
 			return []byte(key), nil
 		})
 		if !t.Valid {
-			return ret, errors.New("token 验证失败")
-		}
-		if isfenghao ==nil{
-			return ret, errors.New("token 验证失败")
-		}
-
-		if err:=getFengHao(uid);err!=nil&&uid>10002 {
-			ret["state"] = 1
-			return ret, errors.New("token 验证失败")
+			return nil, errors.New("token 验证失败")
 		}
 		return t.Claims, err
 	}
@@ -159,17 +148,35 @@ func (e *EchoTools) GetToken(key string,uid int) (values.ValueMap, error) {
 	if len(auth) > l+1 && auth[:l] == Bearer {
 		t, err := jwt.Parse(auth[l+1:], func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				ret["state"] = 0
-				return ret, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 			}
 			return []byte(key), nil
 		})
 		if !t.Valid {
-			return ret, errors.New("token 验证失败")
+			return nil, errors.New("token 验证失败")
 		}
 		return t.Claims, err
 	}
-	return ret, errors.New("获取 token 失败")
+	return nil, errors.New("获取 token 失败")
+}
+
+// VerifyToken 验证传入的
+func (e *EchoTools) VerifyToken(key, auth string) (values.ValueMap, error) {
+	// 如果 url 中存在 token，则从 url 中提取
+	if len(auth) > 0 {
+		t, err := jwt.Parse(auth, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			}
+			return []byte(key), nil
+		})
+		if !t.Valid {
+			return nil, errors.New("token 验证失败")
+		}
+		return t.Claims, err
+	}
+
+	return nil, errors.New("获取 token 失败")
 }
 
 // GetIP 获取 ip 地址
@@ -203,8 +210,12 @@ func (e *EchoTools) BadRequest(msg string) error {
 }
 
 // OK OK 信息
-func (e *EchoTools) OK(it interface{}) error {
-	return e.c.JSONIndent(http.StatusOK, it, "", "  ")
+func (e *EchoTools) OK(state, it interface{}) error {
+	ret := values.ValueMap{
+		"state": state,
+		"data": it,
+	}
+	return e.c.JSONIndent(http.StatusOK, ret, "", "  ")
 }
 
 // MiddleLogger log 中间件

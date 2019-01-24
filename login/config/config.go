@@ -1,4 +1,3 @@
-
 package config
 
 import (
@@ -6,24 +5,24 @@ import (
 	"io/ioutil"
 	"os"
 
-	"qianuuu.com/lib/logs"
-
 	"github.com/BurntSushi/toml"
+	"qianuuu.com/lib/logs"
 )
 
 // Config 配置类型
 type Config struct {
-	Port             string // 服务器端口
-	ConnString       string // 数据库连接地址
-	LogPath          string // 日志目录
+	Port       string // 服务器端口
+	ConnString string // 数据库连接地址
+	LogPath    string // 日志目录
+	JWTSigning string
 }
-
 
 // Opts 配置默认值
 var Opts = Config{
-	Port:                  "8106",
-	ConnString:            "postgres://postgres:postgres@localhost:5432/poker?sslmode=disable",
-	LogPath:               "",
+	Port:       "8106",
+	ConnString: "postgres://postgres:postgres@localhost:5432/poker?sslmode=disable",
+	LogPath:    "",
+	JWTSigning: "kuaigou",
 }
 
 // ParseToml 解析配置文件
