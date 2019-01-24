@@ -22,7 +22,7 @@ echo "docker build $APP_NAME ..."
 # CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o app ..
 
 LC_PATH=$PWD/../..
-PJ_PATH=/go/src/qianuuu.com/player
+PJ_PATH=/go/src/qianuuu.com/kuaigou
 docker run --rm -e CGO_ENABLED=0 -v $LC_PATH:$PJ_PATH -w $PJ_PATH/login/docker qianuuu.cn/golang go build -o app ..
 
 # 创建 Dockerfile 文件

@@ -23,7 +23,7 @@ echo "go build $APP_NAME ..."
 
 PACKAGE_NAME=qianuuu.com/$PROJECT_NAME
 LC_PATH=$PWD/../..
-PJ_PATH=/go/src/qianuuu.com/player
+PJ_PATH=/go/src/qianuuu.com/kuaigou
 docker run --rm -e CGO_ENABLED=0 \
 	   -v $LC_PATH:$PJ_PATH \
 	   -w $PJ_PATH/$PROJECT_NAME/docker qianuuu.cn/golang go build -o app ..
@@ -31,12 +31,12 @@ docker run --rm -e CGO_ENABLED=0 \
 # 创建 Dockerfile 文件
 rm -f ./Dockerfile
 touch ./Dockerfile
-echo 'FROM qianuuu.cn/ffmpeg' > Dockerfile
+echo 'FROM qianuuu.cn/kuaigou' > Dockerfile
 echo ADD app /$APP_NAME >> Dockerfile
 echo CMD [\"/${APP_NAME}\"] >> Dockerfile
 
 # 构建 docker image
-REGISTRY=qianuuu.cn
+REGISTRY=139.224.239.128:5000
 DOCKER_IMAGE=$REGISTRY/$IMAGE_NAME
 if [ -n "$1" ]; then
 	DOCKER_IMAGE=$DOCKER_IMAGE:$1

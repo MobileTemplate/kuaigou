@@ -1,4 +1,3 @@
-
 package usecase
 
 import (
@@ -15,7 +14,7 @@ const UCDBURL = "postgres://postgres:qianuuu_12345@test.qianuuu.cn:5462/jwyl?ssl
 
 // 测试用户模块
 func TestUsecase(t *testing.T) {
-	logs.Info("test player ...")
+	logs.Info("test kuaigou ...")
 
 	client, err := client.NewClient("postgres", UCDBURL)
 	assert.Equal(t, err, nil)

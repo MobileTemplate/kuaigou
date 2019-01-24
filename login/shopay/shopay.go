@@ -2,8 +2,8 @@ package shopay
 
 import (
 	"github.com/labstack/echo"
+	"qianuuu.com/kuaigou/login/shopay/paylib"
 	"qianuuu.com/lib/logs"
-	"qianuuu.com/player/login/shopay/paylib"
 )
 
 var (

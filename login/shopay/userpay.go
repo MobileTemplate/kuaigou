@@ -6,43 +6,19 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	"qianuuu.com/kuaigou/domain"
+	"qianuuu.com/kuaigou/login/shopay/paylib"
 	"qianuuu.com/lib/echotools"
 	"qianuuu.com/lib/logs"
 	"qianuuu.com/lib/values"
-	"qianuuu.com/player/domain"
-	"qianuuu.com/player/login/shopay/payas"
-	"qianuuu.com/player/login/shopay/paylib"
-	"qianuuu.com/player/login/shopay/payqjh"
-	"qianuuu.com/player/login/shopay/payqtb"
-	"qianuuu.com/player/login/shopay/paysjh"
-	"qianuuu.com/player/login/shopay/paysjhh5"
-	"qianuuu.com/player/login/shopay/payuto"
-	"qianuuu.com/player/login/shopay/payyb"
-	"qianuuu.com/player/login/shopay/payzfy"
 )
 
 func createPayHandler(pi *paylib.PayItem) (paylib.PayHandler, error) {
 	// 创建通道订单并返回
 	var pay paylib.PayHandler
-	if pi.PayName == "zfy" {
-		pay = payzfy.Create(pi)
-	} else if pi.PayName == "yb" {
-		pay = payyb.Create(pi)
-	} else if pi.PayName == "qjh" {
-		pay = payqjh.Create(pi)
-	} else if pi.PayName == "qtb" {
-		pay = payqtb.Create(pi)
-	} else if pi.PayName == "uto" {
-		pay = payuto.Create(pi)
-	} else if pi.PayName == "as" {
-		pay = payas.Create(pi)
-	} else if pi.PayName == "sjh" {
-		pay = paysjh.Create(pi)
-	} else if pi.PayName == "sjhh5" {
-		pay = paysjhh5.Create(pi)
-	} else {
-		return nil, errors.New("未知的支付通道")
-	}
+
+	return nil, errors.New("未知的支付通道")
+
 	return pay, nil
 }
 
