@@ -31,7 +31,7 @@ docker run --rm -e CGO_ENABLED=0 \
 # 创建 Dockerfile 文件
 rm -f ./Dockerfile
 touch ./Dockerfile
-echo 'FROM qianuuu.cn/kuaigou' > Dockerfile
+echo 'FROM 139.224.239.128:5000/tcp' > Dockerfile
 echo ADD app /$APP_NAME >> Dockerfile
 echo CMD [\"/${APP_NAME}\"] >> Dockerfile
 
