@@ -29,14 +29,14 @@ docker run --rm -e CGO_ENABLED=0 -v $LC_PATH:$PJ_PATH -w $PJ_PATH/login/docker q
 cp ../config.toml ./
 rm -f ./Dockerfile
 touch ./Dockerfile
-echo 'FROM qianuuu.cn/ffmpeg' > Dockerfile
+echo 'FROM registry.cn-shanghai.aliyuncs.com/zykg/kg' > Dockerfile
 echo ADD app /$APP_NAME >> Dockerfile
 echo ADD config.toml /config.toml >> Dockerfile
 echo CMD [\"/${APP_NAME}\"] >> Dockerfile
 
 
 # 构建 docker image
-REGISTRY=qianuuu.cn
+REGISTRY=registry.cn-shanghai.aliyuncs.com/zykg/kg
 echo go build $REGISTRY/$IMAGE_NAME
 if [ -n "$1" ]; then
 	docker build --force-rm=true -t $REGISTRY/$IMAGE_NAME:$1 .
