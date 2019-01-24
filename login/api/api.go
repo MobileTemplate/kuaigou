@@ -28,27 +28,15 @@ func SetupRoutes(r rest.Router) {
 	e.Use(middleware.Recover())
 	e.Use(rest.MiddleAddHead())
 	e.Use(rest.MiddleLogger())
-	//e.Use(middleware.Secure())
 
 	e.Post("/users/login", UserLogin)
-
+	e.Post("/users/register", UserRegister)
 	UsersId(r)
 }
 
 func UsersId(r rest.Router) {
 	e := r.GetEcho()
 	ui := e.Group("/users/:id")
-	ui.Get("/info", UserInfo)
-	//ui.Use(func() echo.MiddlewareFunc {
-	//	return func(h echo.HandlerFunc) echo.HandlerFunc {
-	//		return func(c echo.Context) error {
-	//			t := echotools.NewEchoTools(c)
-	//			uid := t.ParamInt("id")
-	//			fmt.Println(uid)
-	//
-	//			return nil
-	//		}
-	//	}
-	//}())
 
+	ui.Get("/info", UserInfo)
 }

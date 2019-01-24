@@ -80,7 +80,7 @@ func (cl *Client) NewSession() *xorm.Session {
 
 // GetNextSerial 获取下个以序列
 func (cl *Client) GetNextSerial(serialbean SerialInteractor) (int, error) {
-	sqlStr := fmt.Sprintf("select nextval('%s_id_seq'::regclass)", serialbean.TableName())
+	sqlStr := fmt.Sprintf("select nextval('seq_%s_id'::regclass)", serialbean.TableName())
 	data, err := cl.engine.Query(sqlStr)
 	if err != nil || data == nil || len(data) == 0 {
 		return 0, err

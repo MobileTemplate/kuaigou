@@ -1,5 +1,11 @@
 package domain
 
+import (
+	"encoding/json"
+
+	"qianuuu.com/lib/logs"
+)
+
 // 用户表
 type User struct {
 	ID       int    `xorm:"'id' not null pk autoincr INTEGER"` //玩家ID
@@ -20,4 +26,18 @@ func (User) TableName() string {
 
 type UserMisc struct {
 	Code string `json:"code"`
+}
+
+func (u *User) GetMisc() UserMisc {
+	ret := UserMisc{}
+	_ = json.Unmarshal([]byte(u.Misc), &ret)
+	return ret
+}
+func (u *User) SetMisc(misc UserMisc) {
+	ret, err := json.Marshal(misc)
+	if err != nil {
+		logs.Error(err.Error())
+	} else {
+		u.Misc = string(ret)
+	}
 }
