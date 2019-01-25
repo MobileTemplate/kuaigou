@@ -31,13 +31,13 @@ docker run --rm -e CGO_ENABLED=0 \
 # 创建 Dockerfile 文件
 rm -f ./Dockerfile
 touch ./Dockerfile
-echo 'FROM registry.cn-shanghai.aliyuncs.com/zykg/kg/tcp' > Dockerfile
+echo 'FROM registry.cn-shanghai.aliyuncs.com/zykg/kg' > Dockerfile
 echo ADD app /$APP_NAME >> Dockerfile
 echo CMD [\"/${APP_NAME}\"] >> Dockerfile
 
 # 构建 docker image
 REGISTRY=registry.cn-shanghai.aliyuncs.com/zykg/kg
-DOCKER_IMAGE=$REGISTRY/$IMAGE_NAME
+DOCKER_IMAGE=$REGISTRY
 if [ -n "$1" ]; then
 	DOCKER_IMAGE=$DOCKER_IMAGE:$1
 fi

@@ -19,8 +19,8 @@ type Config struct {
 
 // Opts 配置默认值
 var Opts = Config{
-	Port:       "8106",
-	ConnString: "postgres://postgres:postgres@localhost:5432/poker?sslmode=disable",
+	Port:       "8006",
+	ConnString: "postgres://postgres:C2092B3B98Af@rm-uf6u5m4mk8lqipvyvxo.pg.rds.aliyuncs.com:3432/kuaigou?sslmode=disable",
 	LogPath:    "",
 	JWTSigning: "kuaigou",
 }
