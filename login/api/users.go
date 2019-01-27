@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo"
 	"qianuuu.com/kuaigou/login/config"
 	"qianuuu.com/lib/echotools"
+	"qianuuu.com/lib/logs"
 	"qianuuu.com/lib/values"
 )
 
@@ -23,6 +24,9 @@ func UserLogin(c echo.Context) error {
 		code     = value.GetString("code")
 		password = value.GetString("password")
 	)
+	logs.Info("phone: ", phone)
+	logs.Info("code: ", code)
+	logs.Info("password: ", password)
 	// 通过code登录
 	if code != "" {
 		token, err := t.VerifyToken(config.Opts.JWTSigning, code)
